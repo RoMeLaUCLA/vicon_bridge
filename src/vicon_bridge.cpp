@@ -461,6 +461,8 @@ private:
     std::vector<tf::StampedTransform, std::allocator<tf::StampedTransform> > transforms;
     geometry_msgs::TransformStampedPtr pose_msg(new geometry_msgs::TransformStamped);
     static unsigned int cnt = 0;
+    frame_time = ros::Time::now(); // istead of `fram_time` from mocap
+
 
     for (unsigned int i_subjects = 0; i_subjects < n_subjects; i_subjects++)
     {
@@ -557,7 +559,7 @@ private:
       }
       n_markers = 0;
       vicon_bridge::Markers markers_msg;
-      markers_msg.header.stamp = frame_time;
+      markers_msg.header.stamp = ros::Time::now(); // instead of frame_time from mocap;
       markers_msg.frame_number = vicon_frame_num;
       // Count the number of subjects
       unsigned int SubjectCount = vicon_client_.GetSubjectCount().SubjectCount;
