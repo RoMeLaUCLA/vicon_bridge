@@ -461,7 +461,7 @@ private:
     std::vector<tf::StampedTransform, std::allocator<tf::StampedTransform> > transforms;
     geometry_msgs::TransformStampedPtr pose_msg(new geometry_msgs::TransformStamped);
     static unsigned int cnt = 0;
-    frame_time = ros::Time::now(); // istead of `fram_time` from mocap
+    ros::Time frame_time_ros = ros::Time::now(); // istead of `frame_time` from mocap
 
 
     for (unsigned int i_subjects = 0; i_subjects < n_subjects; i_subjects++)
@@ -502,7 +502,7 @@ private:
                 if (seg.is_ready)
                 {
                   transform = transform * seg.calibration_pose;
-                  transforms.push_back(tf::StampedTransform(transform, frame_time, tf_ref_frame_id_, tracked_frame));
+                  transforms.push_back(tf::StampedTransform(transform, frame_time_ros, tf_ref_frame_id_, tracked_frame));
 //                  transform = tf::StampedTransform(flyer_transform, frame_time, tf_ref_frame_id_, tracked_frame);
 //                  tf_broadcaster_.sendTransform(transform);
 
